@@ -83,7 +83,7 @@ if(isset($_REQUEST['task'])){
 		break;
 
 		case 'schedule':
-		$bcgetclass = $bc -> getclass($_POST);
+		$bcgetclass = $bc -> createClass($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($bcgetclass));
 		exit;
@@ -97,56 +97,56 @@ if(isset($_REQUEST['task'])){
 		break;
 
 		case 'listdiscount':
-		$bclistdiscount = $bc -> listdiscount($_POST);
+		$bclistdiscount = $bc -> listDiscount($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($bclistdiscount));
 		exit;
 		break;
 
 		case 'getclassrecording':
-		 $bclistPrices = $bc -> getclassrecording($_POST);
+		 $bclistPrices = $bc -> getClassRecording($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($bclistPrices));
 		exit;
 		break;
 
 		case 'getrecording':
-		 $getrecording = $bc -> getrecording($_POST);
+		 $getrecording = $bc -> getRecording($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($getrecording));
 		exit;
 		break;
 
 		case 'changestatusrecording':
-		 $changestatusrecording = $bc -> changestatusrecording($_POST);
+		 $changestatusrecording = $bc -> changeStatusRecording($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($changestatusrecording));
 		exit;
 		break;
 
 		case 'removediscount':
-		$removediscount = $bc -> removediscount($_POST);
+		$removediscount = $bc -> removeDiscount($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($removediscount));
 		exit;
 		break;
 
 		case 'removeprice':
-		$removeprice = $bc -> removeprice($_POST);
+		$removeprice = $bc -> removePrice($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($removeprice));
 		exit;
 		break;
 
 		case 'getlaunchurl':
-		$getlaunchurl = $bc -> getlaunchurl($_POST);
+		$getlaunchurl = $bc -> getLaunchURL($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($getlaunchurl));
 		exit;
 		break;
 
 		case 'getclassreport':
-		$getclassreport = $bc -> getclassreport($_POST);
+		$getclassreport = $bc -> getClassReport($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($getclassreport));
 		exit;
@@ -167,14 +167,14 @@ if(isset($_REQUEST['task'])){
 		break;
 
 		case 'removeclassrecording':
-		$removeclassrecording = $bc -> removeclassrecording($_POST);
+		$removeclassrecording = $bc -> removeClassRecording($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($removeclassrecording));
 		exit;
 		break;
 
 		case 'removeclass':
-		$removeclass = $bc -> removeclass($_POST);
+		$removeclass = $bc -> removeClass($_POST);
 		// echo '<pre>';
 	    print_r(json_encode($removeclass));
 		exit;

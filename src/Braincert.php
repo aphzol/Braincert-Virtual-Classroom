@@ -159,12 +159,16 @@ class Braincert {
         $this->api_key = $api_key;
     }
 
-    public function getclassdata($data = array()) {
+    public function getClassData($data = array()) {
         $data['task'] = 'getclass';
         return $this->sendHttpRequest($data);
     }
 
-    public function getclass($data = array()) {
+    /**
+     * @param $data
+     * @return false|object
+     */
+    public function createClass($data = array()) {
         $data['weekdays'] = implode(',', $data['weekdays']);
 
         if ($data['record'] == '1' && $data['start_recording_auto'] == '2') {
@@ -219,7 +223,7 @@ class Braincert {
         return $this->sendHttpRequest($data);
     }
 
-    public function listdiscount($data = array()) {
+    public function listDiscount($data = array()) {
         $data['task'] = 'listdiscount';
         return $this->sendHttpRequest($data);
     }
@@ -230,54 +234,54 @@ class Braincert {
         return $this->sendHttpRequest($data);
     }
 
-    public function getclassrecording($data = array()) {
+    public function getClassRecording($data = array()) {
         $data['task'] = 'getclassrecording';
         return $this->sendHttpRequest($data);
     }
 
-    public function removeclassrecording($data = array()) {
+    public function removeClassRecording($data = array()) {
         $data['task'] = 'removeclassrecording';
         return $this->sendHttpRequest($data);
     }
 
-    public function changestatusrecording($data = array()) {
+    public function changeStatusRecording($data = array()) {
         $data['task'] = 'changestatusrecording';
 
         return $this->sendHttpRequest($data);
     }
 
-    public function removediscount($data = array()) {
+    public function removeDiscount($data = array()) {
         $data['task'] = 'removediscount';
         return $this->sendHttpRequest($data);
     }
 
-    public function removeprice($data = array()) {
+    public function removePrice($data = array()) {
         $data['task'] = 'removeprice';
         return $this->sendHttpRequest($data);
     }
 
-    public function getlaunchurl($data = array()) {
+    public function getLaunchURL($data = array()) {
         $data['userId'] = rand();
         $data['task'] = 'getclasslaunch';
         return $this->sendHttpRequest($data);
     }
 
-    public function getclassreport($data = array()) {
+    public function getClassReport($data = array()) {
         $data['task'] = 'getclassreport';
         return $this->sendHttpRequest($data);
     }
 
-    public function removeclass($data = array()) {
+    public function removeClass($data = array()) {
         $data['task'] = 'removeclass';
         return $this->sendHttpRequest($data);
     }
 
-    public function getrecording($data = array()) {
+    public function getRecording($data = array()) {
         $data['task'] = 'getrecording';
         return $this->sendHttpRequest($data);
     }
 
-    public function sendHttpRequest($data) {
+    private function sendHttpRequest($data) {
         global $_debugging;
         $data['apikey'] = $this->api_key;
         $this->apiendpoint = $this->apiendpoint."/".$data['task'];
