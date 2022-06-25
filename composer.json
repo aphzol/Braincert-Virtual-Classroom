@@ -2,7 +2,7 @@
   "name": "aphzol/braincert-virtual-classroom",
   "description": "A Driver for Braincert Virtual Classroom API",
   "type": "library",
-  "minimum-stability": "dev-1.0.1",
+  "minimum-stability": "dev",
   "license": "proprietary",
   "authors": [
     {
