@@ -280,20 +280,14 @@ class Braincert {
     public function sendHttpRequest($data) {
         global $_debugging;
         $data['apikey'] = $this->api_key;
-        $data_string = http_build_query($data);
         $this->apiendpoint = $this->apiendpoint."/".$data['task'];
         $curl = new Curl();
         $curl->setOpt(CURLOPT_RETURNTRANSFER, true);
         $curl->setOpt(CURLOPT_SSL_VERIFYHOST, false);
         $curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);
-
-
-//        $curl->setOpt(CURLOPT_RETURNTRANSFER, true);
-//        $curl->setOpt(CURLOPT_ENCODING, "");
         $curl->setOpt( CURLOPT_MAXREDIRS, 10);
         $curl->setOpt( CURLOPT_TIMEOUT, 300);
         $curl->setOpt( CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-
         $curl->post($this->apiendpoint, $data);
         if($curl->error){
             if ($_debugging) {
@@ -306,12 +300,6 @@ class Braincert {
             dumpVarsDebug('$result = ', $result);
             echo "\$result = $result" . br();
         }
-//        if (trim($error) != "") {
-//            $result = new stdClass();
-//            $result->status = -1;
-//            $result->error = $error;
-//            return json_decode($result);
-//        }
-        return $result;
+        return json_decode($result);
     }
 }

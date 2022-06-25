@@ -12,15 +12,15 @@
   ],
   "require": {
     "php-curl-class/php-curl-class": "^9.6",
-    "php": ">=7.1.3"
+    "php": ">=7.1.3",
+    "vlucas/phpdotenv": "5.4.x-dev"
   },
   "autoload": {
     "psr-4": {
       "aphzol\\apis\\driver\\": "src/"
     },
     "files": [
-      "src/Braincert.php",
-      "src/BraincertServiceProvider.php"
+      "src/Braincert.php"
     ]
   }
 }

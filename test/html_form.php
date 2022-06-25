@@ -1,4 +1,4 @@
-<?php if(!$_REQUEST['ajax']){?> 
+<?php if(!$_REQUEST['ajax']){?>
 <link rel="stylesheet" type="text/css" href="https://www.braincert.com/static/app/bootstrap.min.css"  >
  <link rel="stylesheet" type="text/css" href="https://www.braincert.com/static/app/css.css">
     <link rel="stylesheet" type="text/css" href="https://www.braincert.com/static/app/pretty-json.css">
@@ -20,7 +20,7 @@
         <td>
             <a href="html_form.php?show=removeclass">Remove Class</a>
         </td>
-        
+
     </tr>
     <tr>
 	    <td>
@@ -44,7 +44,7 @@
 			<a href="html_form.php?show=changestatusrecording">Change Status of recording</a>
 		</td>
 		<td>
-			<a href="html_form.php?show=removeclassrecording">Remove Class Recording</a>  
+			<a href="html_form.php?show=removeclassrecording">Remove Class Recording</a>
 		</td>
 	</tr>
 	<tr>
@@ -68,120 +68,118 @@
 	</tr>
 </table>
 
- 
-<?php } ?>
-<?php
+<?php }
 $show = '';
 if(isset($_REQUEST['task'])){
-require_once ('api-library.php'); 
-$bc = new Braincert("CLGny53iAzrbrOTf9Agj");
-
+    require_once ('../vendor/autoload.php');
+    (Dotenv\Dotenv::createUnsafeImmutable(__DIR__.DIRECTORY_SEPARATOR.'..'))->load();
+    $bc = new aphzol\apis\driver\Braincert($_ENV['API_KEY']);
 	switch($_REQUEST['task']){
 		case 'getClassList':
 		 $classList = $bc -> getClassList($_POST);
 		 // echo '<pre>';
-		 print_r($classList);
+		 print_r(json_encode($classList));
 		exit;
 		break;
-		
+
 		case 'schedule':
 		$bcgetclass = $bc -> getclass($_POST);
 		// echo '<pre>';
-	    print_r($bcgetclass);
+	    print_r(json_encode($bcgetclass));
 		exit;
 		break;
-		
+
 	 	case 'listPrices':
 		$bclistPrices = $bc -> listPrices($_POST);
 		// echo '<pre>';
-		print_r($bclistPrices);
+		print_r(json_encode($bclistPrices));
 		exit;
 		break;
-		
+
 		case 'listdiscount':
 		$bclistdiscount = $bc -> listdiscount($_POST);
 		// echo '<pre>';
-	    print_r($bclistdiscount);
+	    print_r(json_encode($bclistdiscount));
 		exit;
 		break;
-		
+
 		case 'getclassrecording':
 		 $bclistPrices = $bc -> getclassrecording($_POST);
 		// echo '<pre>';
-	    print_r($bclistPrices);
+	    print_r(json_encode($bclistPrices));
 		exit;
 		break;
-		
+
 		case 'getrecording':
 		 $getrecording = $bc -> getrecording($_POST);
 		// echo '<pre>';
-	    print_r($getrecording);
+	    print_r(json_encode($getrecording));
 		exit;
 		break;
-		
+
 		case 'changestatusrecording':
 		 $changestatusrecording = $bc -> changestatusrecording($_POST);
 		// echo '<pre>';
-	    print_r($changestatusrecording);
+	    print_r(json_encode($changestatusrecording));
 		exit;
 		break;
-		
+
 		case 'removediscount':
 		$removediscount = $bc -> removediscount($_POST);
 		// echo '<pre>';
-	    print_r($removediscount);
+	    print_r(json_encode($removediscount));
 		exit;
 		break;
-		
+
 		case 'removeprice':
 		$removeprice = $bc -> removeprice($_POST);
 		// echo '<pre>';
-	    print_r($removeprice);
+	    print_r(json_encode($removeprice));
 		exit;
 		break;
 
 		case 'getlaunchurl':
 		$getlaunchurl = $bc -> getlaunchurl($_POST);
 		// echo '<pre>';
-	    print_r($getlaunchurl);
+	    print_r(json_encode($getlaunchurl));
 		exit;
 		break;
-		
+
 		case 'getclassreport':
 		$getclassreport = $bc -> getclassreport($_POST);
 		// echo '<pre>';
-	    print_r($getclassreport);
+	    print_r(json_encode($getclassreport));
 		exit;
 		break;
 
 		case 'createprice':
 		$createprice = $bc -> getPrice($_POST);
 		// echo '<pre>';
-	    print_r($createprice);
+	    print_r(json_encode($createprice));
 		exit;
 		break;
-		
+
 		case 'creatediscount':
 		$creatediscount = $bc -> getDiscount($_POST);
 		// echo '<pre>';
-	    print_r($creatediscount);
+	    print_r(json_encode($creatediscount));
 		exit;
 		break;
-		
+
 		case 'removeclassrecording':
 		$removeclassrecording = $bc -> removeclassrecording($_POST);
 		// echo '<pre>';
-	    print_r($removeclassrecording);
+	    print_r(json_encode($removeclassrecording));
 		exit;
 		break;
-		
+
 		case 'removeclass':
 		$removeclass = $bc -> removeclass($_POST);
 		// echo '<pre>';
-	    print_r($removeclass);
+	    print_r(json_encode($removeclass));
 		exit;
 		break;
-		
+
 		default:
 		break;
 	}
@@ -191,20 +189,20 @@ $bc = new Braincert("CLGny53iAzrbrOTf9Agj");
 <script type="text/javascript">
 function displayresult(result,type){
 	if(type == 'xml'){
-		jQuery('#result').html(result);	
+		jQuery('#result').html(result);
 	}else{
-		var json = result ; 
+		var json = result ;
 		var o;
 		try{ o = JSON.parse(json); }
-		catch(e){ 
+		catch(e){
 			alert('not valid JSON');
 			return;
 		}
-		  var el = {						 
+		  var el = {
 			result: jQuery('#result')
 		};
-			var node = new PrettyJSON.view.Node({ 
-			el:el.result, 
+			var node = new PrettyJSON.view.Node({
+			el:el.result,
 			data:o
 		});
 	}
@@ -225,14 +223,14 @@ jQuery(document).ready(function () {
 	if(task == 'getClassList'){
 		var class_id = jQuery('#class_id').val();
 	}
-	
+
 	var type1 = '<?php echo $_REQUEST['format']?>';
 	jQuery("#format").val(type1);
 	jQuery.ajax({
 	            url: 'html_form.php?ajax=true&task='+task,
 	            type: 'POST',
 				data: jQuery("#adminForm").serialize(),
-	            success:function(result) 
+	            success:function(result)
 	            {
 					displayresult(result, type1);
 					result2 = JSON.parse(result);
@@ -241,21 +239,21 @@ jQuery(document).ready(function () {
 						jQuery('#launch-div').html(htmlstr);
 					}
 	            	//jQuery('#getClassListdiv').html(result);
-					
+
 	            }
 	        });
        });
 });
-</script>            
+</script>
 
-<?php if($_REQUEST['show'] == 'schedule'){ 
-	require_once ('api-library.php'); 
+<?php if($_REQUEST['show'] == 'schedule'){
+	require_once ('api-library.php');
 	$bc = new Braincert("CLGny53iAzrbrOTf9Agj");
-	
-	
+
+
 ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
- 
+
     <div class="control-group">
             <label class="span1 hasTip"  title="Class end time">Set Location:</label>
             <div class="controls">
@@ -297,7 +295,7 @@ jQuery(document).ready(function () {
             <b>(hh:mmA), Example: { 09:50AM }</b>
             </div>
          </div>
-       	<div class="control-group"> 
+       	<div class="control-group">
           	<label class="span1 hasTip"  title="Class end time">To:</label>
             <div class="controls">
        		<input type="text" data-format="hh:mm A" placeholder="To" id="class_end_time" name="end_time" >
@@ -398,14 +396,14 @@ jQuery(document).ready(function () {
                 </select>
 				</div>
 		</div>
-        <div class="control-group"> 
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Class end time">Description:</label>
             <div class="controls">
             <textarea rows="4" cols="50" name="description"></textarea>
        		<!--<input type="text" placeholder="description" id="description" name="description" >-->
             </div>
        	</div>
-        
+
         <div class="control-group">
               	<label class="span1 hasTip"  title="category">Category:</label>
                 <div class="controls">
@@ -427,16 +425,16 @@ jQuery(document).ready(function () {
                 </select>
                 </div>
 		</div>
-        
-        <div class="control-group">  
+
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Recurring class">Recurring Class:</label>
             <div class="controls">
-			<input type="radio" name="is_recurring" value="1">Yes    
-			<input type="radio" name="is_recurring" value="0" checked>No 
+			<input type="radio" name="is_recurring" value="1">Yes
+			<input type="radio" name="is_recurring" value="0" checked>No
             </div>
        	</div>
-        
-        <div class="control-group"> 
+
+        <div class="control-group">
 	        <label class="span1 hasTip"  title="Class end time">When class repeats:</label>
             <div class="controls">
             <select name="repeat" style="display: inline-block;" class="required valid">
@@ -481,11 +479,11 @@ jQuery(document).ready(function () {
                     <input id="sat"  onclick="setweekday(this);" name="weekdays[]"  type="checkbox" value="7" style="display:none;"> Sat
                 </label>
                 </div>
-             </div> 
+             </div>
         <div class="control-group">
         <label class="control-label" style="margin-left: 6px;">Ends:</label>
 	        <div class="controls">
-    		    
+
                     <span style="padding-bottom: 8px; cursor: pointer;float:left" class="radio1 inline">
                     <input type="radio" class="validate-recurring required error" name="afterclasses" id="optionsRadios1" value="0">
                     After&nbsp;
@@ -502,7 +500,7 @@ jQuery(document).ready(function () {
 		        <span>
                     <input type="text" class="span4" value="" name="end_date" id="recurring_enddate" style="min-height: 28px;">
 		        </span>
-	       
+
     	    </div>
         </div>
 
@@ -513,7 +511,7 @@ jQuery(document).ready(function () {
             <input type="radio" id="allow_change_language_2" name="allow_change_interface_language" value="0">No
             </div>
         </div>
-          <?php           
+          <?php
                $langarray = array(1=> 'arabic',2=> 'bosnian',3=> 'bulgarian',4=> 'catalan',5=> 'chinese-simplified',6=> 'chinese-traditional',7=> 'croatian',8=> 'czech',9=> 'danish',10=> 'dutch',11=> 'english',12=> 'estonian',13=> 'finnish',14=> 'french',15=> 'german',16=> 'greek',17=> 'haitian-creole',18=> 'hebrew',19=> 'hindi',20=> 'hmong-daw',21=> 'hungarian',22=> 'indonesian',23=> 'italian',24=> 'japanese',25=> 'kiswahili',26=> 'klingon',27=> 'korean',28=> 'lithuanian',29=> 'malayalam',30=> 'malay',31=> 'maltese',32=> 'norwegian-bokma',33=> 'persian',34=> 'polish',35=> 'portuguese',36=> 'romanian',37=> 'russian',38=> 'serbian',39=> 'slovak',40=> 'slovenian',41=> 'spanish',42=> 'swedish',43=> 'tamil',44=> 'telugu',45=> 'thai',46=> 'turkish',47=> 'ukrainian',48=> 'urdu',49=> 'vietnamese',50=> 'welsh');
                ?>
 
@@ -531,7 +529,7 @@ jQuery(document).ready(function () {
                    </div>
         </div>
 
-        <div class="control-group"> 
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Class end time">Record this class:</label>
             <div class="controls">
 			<input type="radio" name="record" value="1">Yes
@@ -549,7 +547,7 @@ jQuery(document).ready(function () {
             <label class="span1 hasTip" title="Record Class">Start recording automatically when class starts:</label>
             <div class="controls">
             <input type="radio" name="start_recording_auto" value="2">
-                    Yes&nbsp; &nbsp;    
+                    Yes&nbsp; &nbsp;
             <input type="radio" name="start_recording_auto" value="1" checked>
                     No
             </div>
@@ -559,7 +557,7 @@ jQuery(document).ready(function () {
             <label class="span1 hasTip" title="Record Class">Allow instructor to control recording:</label>
             <div class="controls">
             <input type="radio" name="isControlRecording" value="1" checked>
-            Yes&nbsp; &nbsp;    
+            Yes&nbsp; &nbsp;
             <input type="radio" name="isControlRecording" value="0">
             No
             </div>
@@ -569,7 +567,7 @@ jQuery(document).ready(function () {
             <label class="span1 hasTip" title="Record Class">Video delivery:</label>
             <div class="controls">
             <input type="radio" name="isVideo" value="0">
-            Multiple video files&nbsp; &nbsp;    
+            Multiple video files&nbsp; &nbsp;
             <input type="radio" name="isVideo" value="1" checked>
             Single video file
             </div>
@@ -578,11 +576,11 @@ jQuery(document).ready(function () {
         <div class="control-group">
             <label class="span1 hasTip" title="Record Class">Classroom type:</label>
             <div class="controls">
-            <input type="radio" class="required" name="classroom_type" id="classroom_typeyes" value="0" checked>  whiteboard + audio/video + attendee list + chat&nbsp; &nbsp;  
+            <input type="radio" class="required" name="classroom_type" id="classroom_typeyes" value="0" checked>  whiteboard + audio/video + attendee list + chat&nbsp; &nbsp;
             <input type="radio"  class="required" name="classroom_type" id="classroom_typeno" value="1">
-                     whiteboard + attendee list 
+                     whiteboard + attendee list
              <input type="radio"  class="required" name="classroom_type" id="classroom_typeno" value="2">
-                     whiteboard + attendee list + chat         
+                     whiteboard + attendee list + chat
             </div>
         </div>
 
@@ -590,7 +588,7 @@ jQuery(document).ready(function () {
             <label class="span1 hasTip" title="Record Class">Enable webcam and microphone upon entry:</label>
             <div class="controls">
                 <input type="radio" name="isCorporate" value="1">
-                Yes&nbsp; &nbsp;    
+                Yes&nbsp; &nbsp;
                 <input type="radio" name="isCorporate" value="0" checked>
                 No
             </div>
@@ -600,7 +598,7 @@ jQuery(document).ready(function () {
             <label class="span1 hasTip" title="Record Class">Enable private chat:</label>
             <div class="controls">
                 <input type="radio" name="isPrivateChat" value="0" checked>
-                Yes&nbsp; &nbsp;    
+                Yes&nbsp; &nbsp;
                 <input type="radio" name="isPrivateChat" value="1">
                 No
             </div>
@@ -610,20 +608,20 @@ jQuery(document).ready(function () {
             <label class="span1 hasTip" title="Record Class">Enable screen sharing:</label>
             <div class="controls">
                 <input type="radio" name="isScreenshare" value="1">
-                Yes&nbsp; &nbsp;    
+                Yes&nbsp; &nbsp;
                 <input type="radio" name="isScreenshare" value="0" checked>
                 No
             </div>
         </div>
 
-        <div class="control-group">  
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Class end time">Type:</label>
             <div class="controls">
-			<input type="radio" name="ispaid" value="0" checked>Free    
-			<input type="radio" name="ispaid" value="1">Paid 
+			<input type="radio" name="ispaid" value="0" checked>Free
+			<input type="radio" name="ispaid" value="1">Paid
             </div>
        	</div>
-       	
+
        	<div class="control-group">
               	<label class="span1 hasTip"  title="category">Currency:</label>
                 <div class="controls">
@@ -632,19 +630,19 @@ jQuery(document).ready(function () {
 					<option value="cad">CAD ($)</option>
 					<option value="eur">EUR (&euro;)</option>
 					<option value="gbp">GBP (&pound;)</option>
-					<option value="nzd">NZD ($)</option> 
-					<option value="usd" selected="selected">USD ($)</option> 
+					<option value="nzd">NZD ($)</option>
+					<option value="usd" selected="selected">USD ($)</option>
 				</select>
                 </div>
 		</div>
-        
-        <div class="control-group"> 
+
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Max. attendees">Max. attendees:</label>
             <div class="controls">
        		<input type="text" placeholder="Max. attendees" id="seat_attendees" name="seat_attendees" >
             </div>
        	</div>
-         <div class="control-group"> 
+         <div class="control-group">
           	<label class="span1 hasTip"  title="Keywords">Keywords:</label>
             <div class="controls">
        		<input type="text" placeholder="Keywords" id="keyword" name="keyword" >
@@ -660,13 +658,13 @@ jQuery(document).ready(function () {
             </div>
      	</div>
         </div>
-        
-        
+
+
 	</form>
-   
+
  <?php } ?>
- 
-<?php if($_REQUEST['show'] == 'getClassList'){ ?>    
+
+<?php if($_REQUEST['show'] == 'getClassList'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
  <div class="control-group">
  <label class="span1 hasTip"  title="Class id">Class id:</label>
@@ -682,7 +680,7 @@ jQuery(document).ready(function () {
              </div>
          </div>
     </form>
-   
+
  <?php } ?>
   <?php if($_REQUEST['show'] == 'createprice'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -697,13 +695,13 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="price" id="price" name="price">
             </div>
-        </div> 
+        </div>
          <div class="control-group">
           	<label  class="span1 hasTip" for="title"  title="Days (To Give Access for)">Days (To Give Access for):</label>
             <div class="controls">
           	<input type="text" placeholder="scheme_days" id="scheme_days" name="scheme_days">
             </div>
-        </div>    
+        </div>
          <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="Access type"> Access type:</label>
             <div class="controls">
@@ -712,14 +710,14 @@ jQuery(document).ready(function () {
 				<option value="1">limited</option>
 			</select>
             </div>
-        </div>    
+        </div>
          <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="Number of Times">Number of Times:</label>
             <div class="controls">
           	<input type="text" placeholder="numbertimes" id="numbertimes" name="numbertimes">
             </div>
-        </div>  
-        
+        </div>
+
          <input type="hidden" id="task" name="task" value="createprice"/>
          <input type="hidden" id="format" name="format" value=""/>
          <div class="control-group">
@@ -728,7 +726,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
  <?php if($_REQUEST['show'] == 'getprice'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -737,9 +735,9 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="class id" id="class_id" name="class_id">
             </div>
-        </div>   
-        
-        
+        </div>
+
+
          <input type="hidden" id="task" name="task" value="listPrices"/>
          <input type="hidden" id="format" name="format" value=""/>
          <div class="control-group">
@@ -748,7 +746,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-      
+
  <?php } ?>
   <?php if($_REQUEST['show'] == 'removeprice'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -757,7 +755,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Price id" id="id" name="id">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="removeprice"/>
          <input type="hidden" id="format" name="format" value=""/>
          <div class="control-group">
@@ -766,7 +764,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
 
 <?php if($_REQUEST['show'] == 'getclassreport'){ ?>
@@ -777,13 +775,13 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Class id" id="classId" name="classId">
             </div>
-        </div>    
+        </div>
 
-        <div class="control-group">  
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Recurring class">Is Teacher:</label>
             <div class="controls">
-			<input type="radio" name="isTeacher" value="1" checked>Yes    
-			<input type="radio" name="isTeacher" value="0">No 
+			<input type="radio" name="isTeacher" value="1" checked>Yes
+			<input type="radio" name="isTeacher" value="0">No
             </div>
        	</div>
 
@@ -792,7 +790,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="User Name" id="userId" name="userId">
             </div>
-        </div> 
+        </div>
 
          <input type="hidden" id="task" name="task" value="getclassreport"/>
          <input type="hidden" id="format" name="format" value=""/>
@@ -802,9 +800,9 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
- 
+
  <?php if($_REQUEST['show'] == 'getlaunchurl'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
 
@@ -813,13 +811,13 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Class id" id="class_id" name="class_id">
             </div>
-        </div>    
+        </div>
 
-        <div class="control-group">  
+        <div class="control-group">
           	<label class="span1 hasTip"  title="Recurring class">Is Teacher:</label>
             <div class="controls">
-			<input type="radio" name="isTeacher" value="1">Yes    
-			<input type="radio" name="isTeacher" value="0">No 
+			<input type="radio" name="isTeacher" value="1">Yes
+			<input type="radio" name="isTeacher" value="0">No
             </div>
        	</div>
 
@@ -828,24 +826,24 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="User Name" id="userName" name="userName">
             </div>
-        </div> 
+        </div>
 
         <div class="control-group">
           	<label class="span1 hasTip" for="Course Name"  title="Course Name">Course Name:</label>
             <div class="controls">
           	<input type="text" placeholder="Course Name" id="courseName" name="courseName">
             </div>
-        </div> 
+        </div>
 
         <div class="control-group">
           	<label class="span1 hasTip" for="Lesson Name"  title="Lesson Name">Lesson Name:</label>
             <div class="controls">
           	<input type="text" placeholder="Lesson Name" id="lessonName" name="lessonName">
             </div>
-        </div> 
+        </div>
 
-        
-       	
+
+
 
          <input type="hidden" id="task" name="task" value="getlaunchurl"/>
          <input type="hidden" id="format" name="format" value=""/>
@@ -855,10 +853,10 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
 
- <?php if($_REQUEST['show'] == 'creatediscount'){ 
+ <?php if($_REQUEST['show'] == 'creatediscount'){
 // echo date ('h:i:s');
  ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -867,7 +865,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="class id" id="class_id" name="class_id">
             </div>
-        </div>    
+        </div>
          <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="discount_type">Discount Type:</label>
             <div class="controls">
@@ -876,20 +874,20 @@ jQuery(document).ready(function () {
 				<option value="1">% Percentage</option>
 			</select>
             </div>
-        </div>  
+        </div>
         <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="Discount Price">Discount Price:</label>
             <div class="controls">
           	<input type="text" placeholder="discount" id="discount" name="discount">
             </div>
-        </div> 
+        </div>
          <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="Start Date">Start Date:</label>
             <div class="controls">
           	<input type="text" placeholder="start_date" id="start_date" name="start_date">
             <b>(yyyy-mm-dd), Example: { 2014-09-04 }</b>
             </div>
-        </div> 
+        </div>
           <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="End Date">End Date:</label>
             <div class="controls">
@@ -902,14 +900,14 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="discount_limit" id="discount_limit" name="discount_limit">
             </div>
-        </div> 
+        </div>
          <div class="control-group">
           	<label class="span1 hasTip" for="title"  title="discount_code">Discount Code:</label>
             <div class="controls">
           	<input type="text" placeholder="discount_code" id="discount_code" name="discount_code">
             </div>
-        </div>   
-        
+        </div>
+
          <input type="hidden" id="task" name="task" value="creatediscount"/>
          <input type="hidden" id="format" name="format" value=""/>
          <div class="control-group">
@@ -918,7 +916,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
  <?php if($_REQUEST['show'] == 'getDiscount'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -927,7 +925,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="class id" id="class_id" name="class_id">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="listdiscount"/>
          <input type="hidden" id="format" name="format" value=""/>
          <div class="control-group">
@@ -936,7 +934,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
   <?php if($_REQUEST['show'] == 'removediscount'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -945,7 +943,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Discount id" id="discountid" name="discountid">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="removediscount"/>
          <input type="hidden" id="format" name="format" value=""/>
           <div class="control-group">
@@ -954,9 +952,9 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-      
+
  <?php } ?>
- 
+
   <?php if($_REQUEST['show'] == 'getclassrecording'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
 		<div class="control-group">
@@ -964,7 +962,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="class id" id="class_id" name="class_id">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="getclassrecording"/>
          <input type="hidden" id="format" name="format" value=""/>
           <div class="control-group">
@@ -973,9 +971,9 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
-  
+
   <?php if($_REQUEST['show'] == 'getrecording'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
 		<div class="control-group">
@@ -983,7 +981,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Record id" id="record_id" name="record_id">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="getrecording"/>
          <input type="hidden" id="format" name="format" value=""/>
           <div class="control-group">
@@ -992,7 +990,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-     
+
  <?php } ?>
    <?php if($_REQUEST['show'] == 'changestatusrecording'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -1001,7 +999,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Record id" id="id" name="id">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="changestatusrecording"/>
          <input type="hidden" id="format" name="format" value=""/>
           <div class="control-group">
@@ -1010,7 +1008,7 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-      
+
  <?php } ?>
    <?php if($_REQUEST['show'] == 'removeclassrecording'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
@@ -1019,7 +1017,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Record id" id="id" name="id">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="changestatusrecording"/>
          <input type="hidden" id="format" name="format" value=""/>
           <div class="control-group">
@@ -1028,9 +1026,9 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-    
+
  <?php } ?>
- 
+
     <?php if($_REQUEST['show'] == 'removeclass'){ ?>
  <form class="form-horizontal form-validate" id="adminForm" method="post" enctype="multipart/form-data">
 		<div class="control-group">
@@ -1038,7 +1036,7 @@ jQuery(document).ready(function () {
             <div class="controls">
           	<input type="text" placeholder="Class id" id="cid" name="cid">
             </div>
-        </div>    
+        </div>
          <input type="hidden" id="task" name="task" value="removeclass"/>
          <input type="hidden" id="format" name="format" value=""/>
           <div class="control-group">
@@ -1047,9 +1045,9 @@ jQuery(document).ready(function () {
          </div>
          </div>
     </form>
-      
+
  <?php } ?>
- 
+
 <!--Result Div Start-->
 <div class="control-group"><div class="controls"><div>Result</div></div></div>
 <div id="result" style="width: 75%; margin-left: 170px;"></div>
@@ -1071,7 +1069,7 @@ jQuery(document).ready(function () {
 .controls > input{
 	 min-height: 28px;
 	}
-	
+
 td {
     padding-bottom: 5px !important;
 }
@@ -1096,7 +1094,7 @@ td {
 	font-size: 25px;
 }
 .form-horizontal .controls {
-	
+
     margin-left: 170px;
 }
 .add-on {
